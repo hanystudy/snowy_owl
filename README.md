@@ -41,11 +41,17 @@ SnowyOwl.play
 
 ### Used with RSpec
 
+Add this to spec_helper.rb:
+
+```ruby
+require 'snowy_owl'
+require 'snowy_owl/rspec'
+```
+
 Use play_spec.rb instead of play.rb, and add this line to play_spec.rb:
 
 ```ruby
 require 'spec_helper'
-require 'snowy_owl/rspec'
 
 SnowyOwl.play
 ```
