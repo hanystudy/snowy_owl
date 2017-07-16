@@ -1,5 +1,7 @@
 # SnowyOwl
 
+[![Code Climate](https://codeclimate.com/github/hanystudy/snowy_owl/badges/gpa.svg)](https://codeclimate.com/github/hanystudy/snowy_owl)
+
 Owl exploratory testing.
 
 ## Installation
