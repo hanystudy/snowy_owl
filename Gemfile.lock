@@ -1,7 +1,13 @@
+PATH
+  remote: .
+  specs:
+    snowy_owl (0.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
     diff-lcs (1.3)
+    rake (10.5.0)
     rspec (3.6.0)
       rspec-core (~> 3.6.0)
       rspec-expectations (~> 3.6.0)
@@ -22,8 +28,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  rspec (~> 3.6)
+  bundler (~> 1.15)
+  rake (~> 10.0)
+  rspec (~> 3.0)
   rspec-rerun (~> 1.1)
+  snowy_owl!
 
 BUNDLED WITH
    1.15.1

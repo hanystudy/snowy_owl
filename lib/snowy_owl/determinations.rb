@@ -5,7 +5,7 @@ module SnowyOwl
   module Determinations
 
     def self.determine name, &block
-      SnowyOwl.determine_context name.underscore.to_sym, &block
+      SnowyOwl.determine_context SnowyOwl::Support.to_underscore(name).to_sym, &block
     end
 
     def method_missing(name, *args, &block)

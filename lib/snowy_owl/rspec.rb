@@ -28,9 +28,9 @@ module SnowyOwl
       Dir[SnowyOwl.plots_path].each { |f| require f }
       Dir[SnowyOwl.determinations_path].each { |f| require f }
 
-      before do |scenario|
-        SnowyOwl::Persist.recover_scenario scenario.description if SnowyOwl.is_recovering
-        SnowyOwl::Persist.persist_scenario scenario.description if SnowyOwl.is_persisting
+      before do |plot|
+        SnowyOwl::Persist.recover_state plot.description if SnowyOwl.is_recovering
+        SnowyOwl::Persist.persist_state plot.description if SnowyOwl.is_persisting
       end
 
       candidate_play_books = Dir[SnowyOwl.play_books_path]

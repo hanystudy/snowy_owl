@@ -1,6 +1,6 @@
 require 'forwardable'
 require 'yaml'
-require 'snowy_owl/string'
+require 'snowy_owl/support'
 require 'snowy_owl/config'
 
 module SnowyOwl
@@ -20,6 +20,8 @@ module SnowyOwl
         end
         candidate_plots.each do |plot|
           plot_name = plot['plot_name']
+          SnowyOwl::Persist.recover_state plot_name if SnowyOwl.is_recovering
+          SnowyOwl::Persist.persist_state plot_name if SnowyOwl.is_persisting
           instance_exec plot_name, &SnowyOwl::Plots.plot(plot_name)
         end
       end
