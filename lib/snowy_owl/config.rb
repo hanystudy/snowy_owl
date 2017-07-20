@@ -12,10 +12,12 @@ module SnowyOwl
       :plots_path,
       :persist_callback,
       :recover_callback,
+      :spec_file
     ]
 
     attr_accessor :props_path, :determinations_path, :play_books_path
     attr_accessor :is_persisting, :is_recovering, :persist_path, :plots_path
+    attr_accessor :spec_file
 
     def determine_context key, &determine_block
       @determine_context ||= {}
