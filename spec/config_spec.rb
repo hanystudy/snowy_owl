@@ -14,6 +14,7 @@ describe 'config' do
       config.persist_path = ''
       config.persist_callback &proc
       config.recover_callback  &proc
+      config.spec_file = 'spec.rb'
     end
   end
 
@@ -28,6 +29,7 @@ describe 'config' do
     expect(SnowyOwl.persist_path).to eq ''
     expect(SnowyOwl.recover_callback).to eq(proc)
     expect(SnowyOwl.persist_callback).to eq(proc)
+    expect(SnowyOwl.spec_file).to eq('spec.rb')
   end
 
   it 'should allow direct setting' do
@@ -41,6 +43,7 @@ describe 'config' do
     SnowyOwl.persist_path = ''
     SnowyOwl.persist_callback &replacement_proc
     SnowyOwl.recover_callback  &replacement_proc
+    SnowyOwl.spec_file = 'new_spec.rb'
     expect(SnowyOwl.props_path).to eq '/new_path/to/props'
     expect(SnowyOwl.determine_context :context_key).to eq(replacement_proc)
     expect(SnowyOwl.determinations_path).to eq ''
@@ -51,6 +54,7 @@ describe 'config' do
     expect(SnowyOwl.persist_path).to eq ''
     expect(SnowyOwl.recover_callback).to eq(replacement_proc)
     expect(SnowyOwl.persist_callback).to eq(replacement_proc)
+    expect(SnowyOwl.spec_file).to eq('new_spec.rb')
   end
 
   let(:proc) { Proc.new {} }
