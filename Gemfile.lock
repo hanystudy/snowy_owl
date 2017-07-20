@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    snowy_owl (0.1.0)
+    snowy_owl (0.1.2)
 
 GEM
   remote: https://rubygems.org/
