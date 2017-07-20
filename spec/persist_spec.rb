@@ -13,7 +13,7 @@ describe 'persist' do
     allow(FileUtils).to receive(:mkdir_p).and_return ''
     SnowyOwl::Persist.persist_state 'sample plot'
     expect(plot_name_path).to eq 'sample_plot'
-    expect(persist_path).to eq '/.tmp/sample_plot'
+    expect(persist_path).to eq '/.tmp/'
   end
 
   it 'should recover state' do
@@ -26,6 +26,6 @@ describe 'persist' do
     SnowyOwl.recover_callback &block
     SnowyOwl::Persist.recover_state 'sample plot'
     expect(plot_name_path).to eq 'sample_plot'
-    expect(recover_path).to eq 'sample_plot'
+    expect(recover_path).to eq ''
   end
 end
