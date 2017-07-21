@@ -35,14 +35,12 @@ module SnowyOwl
 
       candidate_play_books = Dir[SnowyOwl.play_books_path]
 
+      owl_field = OwlField.new
+
       candidate_play_books.each do |play_book|
         candidate_plots = YAML.load_file(play_book)
-        plots_scope = ENV['PLOTS_SCOPE']
-        if plots_scope.present?
-          SnowyOwl.is_recovering = true
-          scope = plots_scope.split("\n")
-          candidate_plots = candidate_plots.select {|plot| scope.include? plot['plot_name']}
-        end
+        expression = ENV['PLOTS_SCOPE']
+        candidate_plots = owl_field.plots_scope candidate_plots, expression
         candidate_plots.each do |plot|
           it_behaves_like plot['plot_name']
         end
