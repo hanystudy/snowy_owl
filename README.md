@@ -43,6 +43,8 @@ SnowyOwl.play
 
 ### Used with RSpec
 
+Confirm you have rspec and rspec-rerun in your project.
+
 Add this to spec_helper.rb:
 
 ```ruby
