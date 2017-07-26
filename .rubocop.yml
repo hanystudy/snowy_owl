@@ -6,3 +6,5 @@ AllCops:
     - 'spec/**/*'
     - '*.gemspec'
     - 'Gemfile'
+Documentation:
+  Enabled: false
