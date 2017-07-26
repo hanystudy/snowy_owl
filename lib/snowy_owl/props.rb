@@ -4,10 +4,9 @@ require 'yaml'
 
 module SnowyOwl
   module Props
-
     def init_props
       props_path = SnowyOwl.props_path
-      raise RuntimeError.new 'Invalid props path' if props_path.empty?
+      raise 'Invalid props path' if props_path.empty?
       props_hash = {}
       Dir[props_path].each do |f|
         field_name = File.basename f, '.yml'

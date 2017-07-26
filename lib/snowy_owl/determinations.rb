@@ -3,8 +3,7 @@ require 'ostruct'
 
 module SnowyOwl
   module Determinations
-
-    def self.determine name, &block
+    def self.determine(name, &block)
       SnowyOwl.determine_context SnowyOwl::Support.to_underscore(name).to_sym, &block
     end
 

@@ -8,12 +8,12 @@ module SnowyOwl
     extend Forwardable
 
     SnowyOwl::Config::OPTIONS.each do |method|
-      def_delegators :config, "#{method}=" , "#{method}="
+      def_delegators :config, "#{method}=", "#{method}="
       def_delegators :config, method, method
     end
 
     def configure
-      yield self.config
+      yield config
     end
 
     def config

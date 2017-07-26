@@ -1,10 +1,8 @@
 module SnowyOwl
   module Plots
-
     class << self
-
       def write(plot_name, &block)
-        proc = Proc.new do |*args|
+        proc = proc do |*args|
           extend SnowyOwl::Props
           extend SnowyOwl::Determinations
           instance_exec(*args, &block)
@@ -13,7 +11,7 @@ module SnowyOwl
         @__plots__[plot_name] = proc
       end
 
-      def plot plot_name
+      def plot(plot_name)
         @__plots__[plot_name]
       end
     end

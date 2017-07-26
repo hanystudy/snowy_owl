@@ -12,7 +12,7 @@ module SnowyOwl
 
   module Plots
     class << self
-      alias :old_write :write
+      alias old_write write
 
       def write(plot_name, &block)
         proc = old_write plot_name, &block
@@ -23,7 +23,7 @@ module SnowyOwl
     end
   end
 
-  def self.play *args
+  def self.play(*args)
     RSpec.feature *args do
       Dir[SnowyOwl.plots_path].each { |f| require f }
       Dir[SnowyOwl.determinations_path].each { |f| require f }
