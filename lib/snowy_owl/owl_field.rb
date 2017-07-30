@@ -5,7 +5,7 @@ module SnowyOwl
     end
 
     def plots_scope(candidate_plots, expression)
-      return candidate_plots if expression.empty?
+      return candidate_plots if expression.nil? || expression.empty?
       SnowyOwl.is_recovering = true
       plots_range = expression.match /(.*)(\.{2})(.*)/
       if plots_range.nil?
