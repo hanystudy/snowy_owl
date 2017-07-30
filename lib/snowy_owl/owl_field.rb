@@ -5,7 +5,7 @@ module SnowyOwl
     end
 
     def plots_scope(candidate_plots, expression)
-      return candidate_plots if expression.empty?
+      return candidate_plots if expression.nil? || expression.empty?
       SnowyOwl.is_recovering = true
       plots_range = expression.match /(.*)(\.{2})(.*)/
       if plots_range.nil?
@@ -13,9 +13,6 @@ module SnowyOwl
         candidate_plots.select { |plot| scope.include? plot['plot_name'] }
       else
         sequence_run_from_starting_point candidate_plots, plots_range
-      else
-        scope = plots_scope.split("\n")
-        candidate_plots = candidate_plots.select {|plot| scope.include? plot['plot_name']}
       end
     end
 
