@@ -40,7 +40,7 @@ module SnowyOwl
       candidate_play_books.each do |play_book|
         candidate_plots = YAML.load_file(play_book)
         expression = ENV['PLOTS_SCOPE']
-        candidate_plots = owl_field.plots_scope candidate_plots, expression
+        candidate_plots = owl_field.plots_scope(candidate_plots, expression)
         candidate_plots.each do |plot|
           it_behaves_like plot['plot_name']
         end
