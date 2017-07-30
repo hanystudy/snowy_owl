@@ -2,7 +2,7 @@ require 'snowy_owl/rspec/rerun'
 
 module SnowyOwl
   class Config
-    alias_options = OPTIONS
+    alias_options = OPTIONS.dup
     alias_options << :spec_file
     remove_const :OPTIONS
     const_set :OPTIONS, alias_options.uniq
@@ -40,7 +40,7 @@ module SnowyOwl
       candidate_play_books.each do |play_book|
         candidate_plots = YAML.load_file(play_book)
         expression = ENV['PLOTS_SCOPE']
-        candidate_plots = owl_field.plots_scope candidate_plots, expression
+        candidate_plots = owl_field.plots_scope(candidate_plots, expression)
         candidate_plots.each do |plot|
           it_behaves_like plot['plot_name']
         end

@@ -5,12 +5,12 @@ module SnowyOwl
     end
 
     def plots_scope(candidate_plots, expression)
-      return candidate_plots if expression.nil?
+      return candidate_plots if expression.empty?
       SnowyOwl.is_recovering = true
       plots_range = expression.match /(.*)(\.{2})(.*)/
       if plots_range.nil?
-        scope = plots_scope.split("\n")
-        candidate_plots = candidate_plots.select { |plot| scope.include? plot['plot_name'] }
+        scope = expression.split("\n")
+        candidate_plots.select { |plot| scope.include? plot['plot_name'] }
       else
         sequence_run_from_starting_point candidate_plots, plots_range
       end
@@ -33,7 +33,7 @@ module SnowyOwl
       candidate_play_books.each do |play_book|
         candidate_plots = YAML.load_file(play_book)
         expression = ENV['PLOTS_SCOPE']
-        candidate_plots = plots_scope candidate_plots, expression
+        candidate_plots = plots_scope(candidate_plots, expression)
         candidate_plots.each do |plot|
           plot_name = plot['plot_name']
           SnowyOwl::Persist.recover_state plot_name if SnowyOwl.is_recovering
