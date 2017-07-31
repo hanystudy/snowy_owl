@@ -2,7 +2,7 @@
 
 [![Code Climate](https://codeclimate.com/github/hanystudy/snowy_owl/badges/gpa.svg)](https://codeclimate.com/github/hanystudy/snowy_owl)
 
-Owl exploratory testing. Go to [SnowyOwl Wiki](https://github.com/hanystudy/snowy_owl/wiki) for background story and concepts.
+Owl exploratory testing. A demo project can be found [here](https://github.com/hanystudy/snowy_owl_demo). Go to [SnowyOwl Wiki](https://github.com/hanystudy/snowy_owl/wiki) for background story and concepts.
 
 ## Installation
 
