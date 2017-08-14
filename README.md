@@ -41,13 +41,14 @@ require 'snowy_owl'
 SnowyOwl.play
 ```
 
-### Used with RSpec
+### Used with RSpec and Capybara
 
 Confirm you have rspec and rspec-rerun in your project.
 
 Add this to spec_helper.rb:
 
 ```ruby
+require 'capybara/rspec'
 require 'snowy_owl'
 require 'snowy_owl/rspec'
 ```
