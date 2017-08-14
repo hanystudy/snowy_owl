@@ -2,6 +2,7 @@ require 'forwardable'
 require 'yaml'
 require 'snowy_owl/support'
 require 'snowy_owl/config'
+require 'snowy_owl/digest'
 
 module SnowyOwl
   class << self
