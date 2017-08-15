@@ -4,7 +4,7 @@ module RSpec
   module Rerun
     class Formatter
       def retry_command(example)
-        example.description
+        example.metadata[:digest]
       end
     end
 

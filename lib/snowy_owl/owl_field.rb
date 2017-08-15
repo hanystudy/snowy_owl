@@ -10,7 +10,7 @@ module SnowyOwl
       plots_range = expression.match /(.*)(\.{2})(.*)/
       if plots_range.nil?
         scope = expression.split("\n")
-        candidate_plots.select { |plot| scope.include? plot['plot_name'] }
+        candidate_plots.select { |plot| scope.include?(plot['plot_name']) || scope.include?(plot['digest']) }
       else
         sequence_run_from_starting_point candidate_plots, plots_range
       end
@@ -23,9 +23,10 @@ module SnowyOwl
       in_scope = false
       candidate_plots.each_with_object([]) do |plot, acc|
         plot_name = plot['plot_name']
-        in_scope = true if plot_name == starting_point
+        plot_digest = plot['digest']
+        in_scope = true if plot_name == starting_point || plot_digest == starting_point
         acc << plot if in_scope
-        in_scope = false if plot_name == ending_point
+        in_scope = false if plot_name == ending_point || plot_digest == ending_point
       end
     end
 
