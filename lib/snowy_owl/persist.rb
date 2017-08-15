@@ -5,19 +5,18 @@ require 'fileutils'
 module SnowyOwl
   module Persist
     class << self
-      def persist_state(plot_name)
-        plot_name_path = SnowyOwl::Support.to_underscore plot_name
+      def persist_state(digest)
         temp_persist_path = SnowyOwl.persist_path + '/.tmp/'
-        path = temp_persist_path + plot_name_path
+        sub_path = digest
+        path = temp_persist_path + sub_path
         FileUtils.mkdir_p path
-        args = [plot_name_path, temp_persist_path]
+        args = [sub_path, temp_persist_path]
         SnowyOwl.persist_callback.call(args)
       end
 
-      def recover_state(plot_name)
-        plot_name_path = SnowyOwl::Support.to_underscore plot_name
-        path = SnowyOwl.persist_path + plot_name_path
-        args = [plot_name_path, SnowyOwl.persist_path]
+      def recover_state(digest)
+        sub_path = digest
+        args = [sub_path, SnowyOwl.persist_path]
         SnowyOwl.recover_callback.call(args)
       end
     end

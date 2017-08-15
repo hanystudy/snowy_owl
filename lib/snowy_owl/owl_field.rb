@@ -32,12 +32,14 @@ module SnowyOwl
     def sequence_run(candidate_play_books)
       candidate_play_books.each do |play_book|
         candidate_plots = YAML.load_file(play_book)
+        candidate_plots = SnowyOwl::Digest.generate_full_path_digest(candidate_plots)
         expression = ENV['PLOTS_SCOPE']
         candidate_plots = plots_scope(candidate_plots, expression)
         candidate_plots.each do |plot|
           plot_name = plot['plot_name']
-          SnowyOwl::Persist.recover_state plot_name if SnowyOwl.is_recovering
-          SnowyOwl::Persist.persist_state plot_name if SnowyOwl.is_persisting
+          digest = plot['digest']
+          SnowyOwl::Persist.recover_state digest if SnowyOwl.is_recovering
+          SnowyOwl::Persist.persist_state digest if SnowyOwl.is_persisting
           instance_exec plot_name, &SnowyOwl::Plots.plot(plot_name)
         end
       end
