@@ -39,14 +39,13 @@ module SnowyOwl
 
       owl_field = OwlField.new
 
-      candidate_play_books.each do |play_book|
-        candidate_plots = YAML.load_file(play_book)
-        candidate_plots = SnowyOwl::Digest.generate_full_path_digest(candidate_plots)
-        expression = ENV['PLOTS_SCOPE']
-        candidate_plots = owl_field.plots_scope(candidate_plots, expression)
-        candidate_plots.each do |plot|
-          it_behaves_like plot['plot_name'], digest: plot['digest']
-        end
+      candidate_plots = SnowyOwl::Plays.build_plays(candidate_play_books)
+      expression = ENV['PLOTS_SCOPE']
+      candidate_plots = owl_field.plots_scope(candidate_plots, expression)
+      candidate_plots.each do |plot|
+        plot_name = plot['plot_name']
+        digest = plot['digest']
+        it_behaves_like plot_name, digest: digest
       end
     end
   end
