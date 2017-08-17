@@ -42,6 +42,7 @@ SnowyOwl.configure do |config|
   config.persist_path = ''
 end
 
+require 'snowy_owl/plays'
 require 'snowy_owl/persist'
 require 'snowy_owl/plots'
 require 'snowy_owl/props'

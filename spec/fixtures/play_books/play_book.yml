@@ -1,1 +1,13 @@
-- plot_name: demo play book
+- plot_name: get up
+  digest: a1
+- plot_name: wash face
+  digest: a2
+- plot_name: leave home
+  digest: a3
+- plot_name: take shuttle
+  digest: a4
+- plot_name: get office
+  digest: a5
+- plot_name: start working
+  digest: a6
+  parent: a1
