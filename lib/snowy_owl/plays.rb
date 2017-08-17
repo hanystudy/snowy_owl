@@ -1,24 +1,30 @@
 module SnowyOwl
   module Plays
     class PlotNodeHash
-      attr_accessor :children, :digest, :parent
+      attr_accessor :children, :digest, :parent, :name
 
-      def initialize(digest, parent = nil)
+      def initialize(name, digest, parent = nil)
         @digest = digest
         @parent = parent
+        @name = name
         @children = []
       end
 
       def append_child(digest)
         @children << digest
       end
+
+      def to_h
+        {'digest' => @digest,
+         'parent' => @parent,
+         'plot_name' => @name }
+      end
     end
 
     class << self
-      def build_plays
+      def build_plays(candidate_play_books)
         @play_hash = {}
         @starting_node = nil
-        candidate_play_books = Dir[SnowyOwl.play_books_path]
         candidate_play_books.each do |play_book|
           candidate_plots = YAML.load_file(play_book)
           generate_full_path_digest(candidate_plots)
@@ -32,7 +38,7 @@ module SnowyOwl
         while !deep_stack.empty?
           node = deep_stack.pop
           deep_stack = deep_stack.concat @play_hash[node].children
-          plays << node
+          plays << @play_hash[node].to_h
         end
         plays
       end
@@ -52,10 +58,10 @@ module SnowyOwl
       end
 
       def create_node plot
-        plot_node = @play_hash[plot['digest']] || PlotNodeHash.new(plot['digest'], plot['parent'])
+        plot_node = @play_hash[plot['digest']] || PlotNodeHash.new(plot['plot_name'], plot['digest'], plot['parent'])
         @play_hash[plot['digest']] = plot_node
         if !plot['parent'].nil?
-          parent_node = @play_hash[plot['parent']] || PlotNodeHash.new(plot['parent'])
+          parent_node = @play_hash[plot['parent']] || PlotNodeHash.new(plot['plot_name'], plot['parent'])
           plot_node.parent = plot['parent']
           parent_node.append_child plot['digest']
           @play_hash[plot['parent']] = parent_node

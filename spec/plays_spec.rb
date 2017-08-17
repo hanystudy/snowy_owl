@@ -4,7 +4,7 @@ describe 'plays' do
 
   it 'should generate deep first list' do
     SnowyOwl.play_books_path = Dir.pwd + '/spec/fixtures/play_books/*.yml'
-    plays = SnowyOwl::Plays.build_plays
-    expect(plays).to match ['a1','a6','a2','a7','a3','a4','a5']
+    plays = SnowyOwl::Plays.build_plays Dir[SnowyOwl.play_books_path]
+    expect(plays.map {|p| p['digest']}).to match ['a1','a6','a2','a7','a3','a4','a5']
   end
 end
