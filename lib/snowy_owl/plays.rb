@@ -3,10 +3,7 @@ module SnowyOwl
     class PlotNodeHash
       attr_accessor :children, :digest, :parent, :name
 
-      def initialize(name, digest, parent = nil)
-        @digest = digest
-        @parent = parent
-        @name = name
+      def initialize
         @children = []
       end
 
@@ -58,10 +55,13 @@ module SnowyOwl
       end
 
       def create_node plot
-        plot_node = @play_hash[plot['digest']] || PlotNodeHash.new(plot['plot_name'], plot['digest'], plot['parent'])
+        plot_node = @play_hash[plot['digest']] || PlotNodeHash.new
+        plot_node.name = plot['plot_name']
+        plot_node.parent = plot['parent']
+        plot_node.digest = plot['digest']
         @play_hash[plot['digest']] = plot_node
         if !plot['parent'].nil?
-          parent_node = @play_hash[plot['parent']] || PlotNodeHash.new(plot['plot_name'], plot['parent'])
+          parent_node = @play_hash[plot['parent']] || PlotNodeHash.new
           plot_node.parent = plot['parent']
           parent_node.append_child plot['digest']
           @play_hash[plot['parent']] = parent_node
