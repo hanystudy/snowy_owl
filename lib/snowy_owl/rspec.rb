@@ -49,4 +49,23 @@ module SnowyOwl
       end
     end
   end
+
+  class StatusFormatter
+    RSpec::Core::Formatters.register self, :example_failed
+
+    def initialize(out)
+      @out = out
+    end
+
+    def example_failed(notification)
+      example = notification.example
+      @out.puts "\nplot name: #{example.description}"
+      @out.puts "plot digest: #{example.metadata[:digest]}"
+    end
+  end
+
+  RSpec.configure do |c|
+    c.add_formatter 'progress'
+    c.add_formatter StatusFormatter
+  end
 end
