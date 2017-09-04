@@ -22,11 +22,14 @@ module SnowyOwl
       def build_plays(candidate_play_books)
         @play_hash = {}
         @starting_node = nil
-        candidate_play_books.each do |play_book|
-          candidate_plots = YAML.load_file(play_book)
-          generate_full_path_digest(candidate_plots)
-        end
+        candidate_play_books.each { |play_book| generate_digest_for_play_book play_book }
         generate_deep_first_plays
+      end
+
+      def generate_digest_for_play_book play_book
+        @play_hash ||= {}
+        candidate_plots = YAML.load_file(play_book)
+        generate_full_path_digest(candidate_plots)
       end
 
       def generate_deep_first_plays
