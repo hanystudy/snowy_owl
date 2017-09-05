@@ -18,6 +18,7 @@ module SnowyOwl
         proc = old_write plot_name, &block
         RSpec.shared_examples plot_name do |args|
           @metadata[:digest] = args[:digest]
+          @metadata[:is_recovering] = args[:is_recovering]
           scenario plot_name, &proc
         end
       end
