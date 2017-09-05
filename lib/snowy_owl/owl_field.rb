@@ -10,7 +10,11 @@ module SnowyOwl
       plots_range = expression.match /(.*)(\.{2})(.*)/
       if plots_range.nil?
         scope = expression.split("\n")
-        candidate_plots.select { |plot| scope.include?(plot['plot_name']) || scope.include?(plot['digest']) }
+        candidate_plots.select do |plot|
+          in_scope = scope.include?(plot['plot_name']) || scope.include?(plot['digest'])
+          plot['is_recovering'] = in_scope
+          in_scope
+        end
       else
         sequence_run_from_starting_point candidate_plots, plots_range
       end
@@ -25,7 +29,10 @@ module SnowyOwl
         plot_name = plot['plot_name']
         plot_digest = plot['digest']
         in_scope = true if plot_name == starting_point || plot_digest == starting_point
-        acc << plot if in_scope
+        if in_scope
+          plot['is_recovering'] = acc.size == 0
+          acc << plot
+        end
         in_scope = false if plot_name == ending_point || plot_digest == ending_point
       end
     end
@@ -37,7 +44,8 @@ module SnowyOwl
       candidate_plots.each do |plot|
         plot_name = plot['plot_name']
         digest = plot['digest']
-        SnowyOwl::Persist.recover_state digest if SnowyOwl.is_recovering
+        is_recovering = plot['is_recovering']
+        SnowyOwl::Persist.recover_state digest if SnowyOwl.is_recovering && is_recovering
         SnowyOwl::Persist.persist_state digest if SnowyOwl.is_persisting
         instance_exec plot_name, &SnowyOwl::Plots.plot(plot_name)
       end

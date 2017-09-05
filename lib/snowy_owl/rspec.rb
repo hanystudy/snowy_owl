@@ -31,7 +31,8 @@ module SnowyOwl
 
       before do |plot|
         digest = plot.metadata[:digest]
-        SnowyOwl::Persist.recover_state digest if SnowyOwl.is_recovering
+        is_recovering = plot.metadata[:is_recovering]
+        SnowyOwl::Persist.recover_state digest if SnowyOwl.is_recovering && is_recovering
         SnowyOwl::Persist.persist_state digest if SnowyOwl.is_persisting
       end
 
@@ -45,7 +46,8 @@ module SnowyOwl
       candidate_plots.each do |plot|
         plot_name = plot['plot_name']
         digest = plot['digest']
-        it_behaves_like plot_name, digest: digest
+        is_recovering = plot['is_recovering']
+        it_behaves_like plot_name, digest: digest, is_recovering: is_recovering
       end
     end
   end
